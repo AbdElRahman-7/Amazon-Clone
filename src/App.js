@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Login from "./components/login";
+import { useEffect } from "react";
+import { auth } from "./firebase"; // Make sure this path is correct and firebase.js exports 'auth'
+import { useAuth } from "./context/GlobalState";
+const App = () => {
+  const { dispatch } = useAuth();
 
-function App() {
+  useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        dispatch({ type: "SET_USER", user: authUser });
+      } else {
+        dispatch({ type: "SET_USER", user: null });
+      }
+    }); 
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<><Header /></>} />
+        <Route path="/Login" element={<Login/>} />
+
+        <Route path="*" element={<h1>Page Not Found </h1>} />
+      </Routes>
     </div>
   );
-}
-
+};
 export default App;
