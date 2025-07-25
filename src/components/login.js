@@ -1,21 +1,23 @@
-import { Link, useNavigate } from "react-router-dom";
-import Logo from "../images/login-logo.png";
-import "./login.css";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import Logo from "../images//login-logo.png";
+import { Link } from "react-router-dom";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../firebase";
-import { useState } from "react";
-import { useAuth } from "../context/GlobalState";
+import './Login.css';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { user } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const sigIn = (e) => {
+  const signIn = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password).then((auth)=>{
-      if(auth){
-          navigate("/");
+    signInWithEmailAndPassword(auth, email, password).then((auth) => {
+      if (auth) {
+        navigate("/");
       }
     });
   };
@@ -31,7 +33,7 @@ const Login = () => {
         alert(error.message);
       });
   };
-  console.log(user);
+
   return (
     <div className="login">
       <Link to="/">
@@ -52,7 +54,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button className="login-signInBtn" type="submit" onClick={sigIn}>
+          <button className="login-signInBtn" type="submit" onClick={signIn}>
             Sign in
           </button>
           <p>
