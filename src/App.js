@@ -6,8 +6,16 @@ import { useAuth } from "./context/GlobalState";
 import Home from "./components/Home";
 import Checkout from "./components/Checkout";
 import Login from "./components/Login";
+import Payment from "./components/Payment";
+import Orders from "./components/Orders";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
 const App = () => {
   const { dispatch } = useAuth();
+  const stripePromise = loadStripe(
+    "pk_test_51Rp1VC4TrqZJveZfKuUhvEiucDhOQKZnwzfd7sunJ2ylE07k4QIascrJsNsrJYU1nN5fcFTgMjkIHZVH99PyjwYd00WTfwvpWL"
+  );
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -16,21 +24,52 @@ const App = () => {
       } else {
         dispatch({ type: "SET_USER", user: null });
       }
-    }); 
+    });
   }, [dispatch]);
 
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<><Header /><Home/></>} />
-                <Route path="/checkout" element={
-                  <>
-                    <Header/>
-                    <Checkout/>
-                  </>
-                } />
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <Home />
+            </>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <>
+              <Header />
+              <Checkout />
+            </>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <>
+              <Header />
+              <Elements stripe={stripePromise}>
+                <Payment/>
+              </Elements>
+            </>
+          }
+        />
 
-        <Route path="/Login" element={<Login/>} />
+        <Route
+          path="/orders"
+          element={
+            <>
+              <Header />
+              <Orders />{" "}
+            </>
+          }
+        />
+        <Route path="/Login" element={<Login />} />
 
         <Route path="*" element={<h1>Page Not Found </h1>} />
       </Routes>

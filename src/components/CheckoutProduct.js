@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuth } from "../context/GlobalState";
 import starIcon from "../images/icons/star.png";
 import "./CheckoutProduct.css";
@@ -13,7 +12,7 @@ const CheckoutProduct = ({ id, image, title, price, rating, hiddenButton }) => {
   };
   return (
     <div className="checkoutProduct">
-      <img className="checkoutProduct-image" src={image} />
+      <img className="checkoutProduct-image" src={image} alt={title} />
       <div className="checkoutProduct-info">
         <p className="checkoutProduct-title">{title}</p>
         <p className="checkoutProduct-price">
@@ -25,7 +24,7 @@ const CheckoutProduct = ({ id, image, title, price, rating, hiddenButton }) => {
             .fill()
             .map((_, i) => (
               <p>
-                <img src={starIcon} />
+                <img src={starIcon} alt="star" />
               </p>
             ))}
         </div>
