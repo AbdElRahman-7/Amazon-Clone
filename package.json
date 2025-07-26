@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stripe/react-stripe-js": "^3.8.0",
+    "@stripe/stripe-js": "^7.6.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.11.0",
     "firebase": "^12.0.0",
+    "moment": "^2.30.1",
     "react": "^19.1.0",
     "react-currency-format": "^1.1.0",
     "react-dom": "^19.1.0",
@@ -15,6 +19,7 @@
     "react-router-dom": "6.3",
     "react-scripts": "5.0.1",
     "shortid": "^2.2.17",
+    "stripe": "^18.3.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
